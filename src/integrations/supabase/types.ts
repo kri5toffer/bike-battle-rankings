@@ -9,7 +9,111 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      bikes: {
+        Row: {
+          bike_name: string
+          bike_type: string
+          brand: string | null
+          description: string | null
+          id: string
+          image_url: string
+          losses: number
+          model: string | null
+          rating: number
+          uploaded_at: string
+          wins: number
+          year: number | null
+        }
+        Insert: {
+          bike_name: string
+          bike_type: string
+          brand?: string | null
+          description?: string | null
+          id?: string
+          image_url: string
+          losses?: number
+          model?: string | null
+          rating?: number
+          uploaded_at?: string
+          wins?: number
+          year?: number | null
+        }
+        Update: {
+          bike_name?: string
+          bike_type?: string
+          brand?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string
+          losses?: number
+          model?: string | null
+          rating?: number
+          uploaded_at?: string
+          wins?: number
+          year?: number | null
+        }
+        Relationships: []
+      }
+      table_name: {
+        Row: {
+          data: Json | null
+          id: number
+          inserted_at: string
+          name: string | null
+          updated_at: string
+        }
+        Insert: {
+          data?: Json | null
+          id?: number
+          inserted_at?: string
+          name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          data?: Json | null
+          id?: number
+          inserted_at?: string
+          name?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      votes: {
+        Row: {
+          id: string
+          loser_id: string
+          voted_at: string
+          winner_id: string
+        }
+        Insert: {
+          id?: string
+          loser_id: string
+          voted_at?: string
+          winner_id: string
+        }
+        Update: {
+          id?: string
+          loser_id?: string
+          voted_at?: string
+          winner_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "votes_loser_id_fkey"
+            columns: ["loser_id"]
+            isOneToOne: false
+            referencedRelation: "bikes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_winner_id_fkey"
+            columns: ["winner_id"]
+            isOneToOne: false
+            referencedRelation: "bikes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

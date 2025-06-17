@@ -3,15 +3,19 @@ import React, { useState, useRef } from 'react';
 import { Upload, Camera, CheckCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import BikeDetailsForm, { BikeDetails } from './BikeDetailsForm';
+import { supabase } from '@/integrations/supabase/client';
 
 interface UploadSectionProps {
-  onBikeUploaded: (imageUrl: string) => void;
+  onBikeUploaded: (imageUrl: string, details: BikeDetails) => void;
 }
 
 const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [showDetailsForm, setShowDetailsForm] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -29,67 +33,127 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
     setIsDragging(false);
     const files = Array.from(e.dataTransfer.files);
     if (files.length > 0) {
-      handleFileUpload(files[0]);
+      handleFileSelect(files[0]);
     }
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
-      handleFileUpload(files[0]);
+      handleFileSelect(files[0]);
     }
   };
 
-  const handleFileUpload = (file: File) => {
+  const handleFileSelect = (file: File) => {
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file');
       return;
     }
 
+    setSelectedFile(file);
+    setShowDetailsForm(true);
+  };
+
+  const handleDetailsSubmit = async (details: BikeDetails) => {
+    if (!selectedFile) return;
+
     setIsUploading(true);
-    const reader = new FileReader();
     
-    reader.onload = (e) => {
-      const imageUrl = e.target?.result as string;
+    try {
+      // Upload image to Supabase Storage
+      const fileExt = selectedFile.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+      const filePath = fileName;
+
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('bike-images')
+        .upload(filePath, selectedFile);
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        alert('Failed to upload image. Please try again.');
+        return;
+      }
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('bike-images')
+        .getPublicUrl(filePath);
+
+      const imageUrl = urlData.publicUrl;
+
+      // Call the parent component's handler
+      onBikeUploaded(imageUrl, details);
+
+      setUploadSuccess(true);
+      setShowDetailsForm(false);
+      setSelectedFile(null);
+      
       setTimeout(() => {
-        onBikeUploaded(imageUrl);
-        setIsUploading(false);
-        setUploadSuccess(true);
-        setTimeout(() => setUploadSuccess(false), 3000);
-      }, 1000); // Simulate upload delay
-    };
-    
-    reader.readAsDataURL(file);
+        setUploadSuccess(false);
+      }, 3000);
+
+    } catch (error) {
+      console.error('Error uploading bike:', error);
+      alert('Failed to upload bike. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowDetailsForm(false);
+    setSelectedFile(null);
   };
 
   const openFileDialog = () => {
     fileInputRef.current?.click();
   };
 
+  if (showDetailsForm) {
+    return (
+      <div className="space-y-8">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-gray-100 mb-4">
+            Almost There!
+          </h2>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            Tell us about your bike before we add it to the competition.
+          </p>
+        </div>
+        <BikeDetailsForm
+          onSubmit={handleDetailsSubmit}
+          onCancel={handleCancel}
+          isSubmitting={isUploading}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <div className="text-center">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <Sparkles className="text-purple-500" size={24} />
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+          <Sparkles className="text-purple-400" size={24} />
+          <h2 className="text-3xl font-bold text-gray-100">
             Showcase Your Ride
           </h2>
         </div>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-300 max-w-2xl mx-auto">
           Upload your bike photo and join the ultimate cycling competition. 
           See how your ride stacks up against the community!
         </p>
       </div>
 
-      <Card className="max-w-3xl mx-auto shadow-2xl border-0 bg-white/70 backdrop-blur-sm">
+      <Card className="max-w-3xl mx-auto shadow-2xl border-0 bg-gray-900/70 backdrop-blur-sm">
         <CardContent className="p-10">
           <div
             className={`border-2 border-dashed rounded-2xl p-16 text-center transition-all duration-300 cursor-pointer ${
               isDragging
-                ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-purple-50 scale-105'
+                ? 'border-blue-400 bg-gradient-to-br from-blue-900/50 to-purple-900/50 scale-105'
                 : uploadSuccess
-                ? 'border-emerald-500 bg-gradient-to-br from-emerald-50 to-green-50'
-                : 'border-gray-300 bg-gradient-to-br from-gray-50 to-white hover:border-blue-400 hover:bg-gradient-to-br hover:from-blue-50 hover:to-purple-50 hover:scale-105'
+                ? 'border-emerald-400 bg-gradient-to-br from-emerald-900/50 to-green-900/50'
+                : 'border-gray-600 bg-gradient-to-br from-gray-800/50 to-gray-900/50 hover:border-blue-500 hover:bg-gradient-to-br hover:from-blue-900/50 hover:to-purple-900/50 hover:scale-105'
             }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -100,48 +164,38 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              onChange={handleFileSelect}
+              onChange={handleFileInputChange}
               className="hidden"
             />
             
-            {isUploading ? (
+            {uploadSuccess ? (
               <div className="space-y-6">
                 <div className="relative">
-                  <div className="animate-spin mx-auto w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-8 h-8 bg-blue-500 rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-                <p className="text-blue-600 font-semibold text-lg">Uploading your masterpiece...</p>
-              </div>
-            ) : uploadSuccess ? (
-              <div className="space-y-6">
-                <div className="relative">
-                  <CheckCircle className="mx-auto text-emerald-500" size={64} />
+                  <CheckCircle className="mx-auto text-emerald-400" size={64} />
                   <div className="absolute -top-2 -right-2">
                     <Sparkles className="text-yellow-400 animate-pulse" size={24} />
                   </div>
                 </div>
                 <div>
-                  <p className="text-emerald-600 font-bold text-xl mb-2">Upload Successful!</p>
-                  <p className="text-gray-600">Your bike is now competing in the arena!</p>
+                  <p className="text-emerald-400 font-bold text-xl mb-2">Upload Successful!</p>
+                  <p className="text-gray-300">Your bike is now competing in the arena!</p>
                 </div>
               </div>
             ) : (
               <div className="space-y-6">
                 <div className="flex justify-center">
                   {isDragging ? (
-                    <Upload className="text-blue-500 animate-bounce" size={64} />
+                    <Upload className="text-blue-400 animate-bounce" size={64} />
                   ) : (
                     <Camera className="text-gray-400" size={64} />
                   )}
                 </div>
                 
                 <div>
-                  <p className="text-xl font-bold text-gray-800 mb-3">
+                  <p className="text-xl font-bold text-gray-100 mb-3">
                     {isDragging ? 'Drop your bike photo here!' : 'Upload Your Bike Photo'}
                   </p>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-300 mb-6">
                     Drag and drop an image, or click to browse your files
                   </p>
                 </div>
@@ -160,12 +214,12 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
             )}
           </div>
 
-          <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
-            <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-              <Sparkles size={16} className="text-purple-500" />
+          <div className="mt-8 p-6 bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl border border-blue-800/50">
+            <h3 className="font-semibold text-gray-100 mb-3 flex items-center gap-2">
+              <Sparkles size={16} className="text-purple-400" />
               Upload Guidelines
             </h3>
-            <div className="text-sm text-gray-600 space-y-2">
+            <div className="text-sm text-gray-300 space-y-2">
               <p>• Supported formats: JPG, PNG, GIF</p>
               <p>• Maximum file size: 10MB</p>
               <p>• No account required - upload anonymously!</p>
