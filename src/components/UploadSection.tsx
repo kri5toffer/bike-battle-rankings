@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { Upload, Camera, CheckCircle } from 'lucide-react';
+import { Upload, Camera, CheckCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -67,21 +67,29 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Upload Your Bike</h2>
-        <p className="text-gray-600">Share your bike and see how it ranks against others!</p>
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <Sparkles className="text-purple-500" size={24} />
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+            Showcase Your Ride
+          </h2>
+        </div>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          Upload your bike photo and join the ultimate cycling competition. 
+          See how your ride stacks up against the community!
+        </p>
       </div>
 
-      <Card className="max-w-2xl mx-auto">
-        <CardContent className="p-8">
+      <Card className="max-w-3xl mx-auto shadow-2xl border-0 bg-white/70 backdrop-blur-sm">
+        <CardContent className="p-10">
           <div
-            className={`border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200 cursor-pointer ${
+            className={`border-2 border-dashed rounded-2xl p-16 text-center transition-all duration-300 cursor-pointer ${
               isDragging
-                ? 'border-blue-500 bg-blue-50'
+                ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-purple-50 scale-105'
                 : uploadSuccess
-                ? 'border-green-500 bg-green-50'
-                : 'border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50'
+                ? 'border-emerald-500 bg-gradient-to-br from-emerald-50 to-green-50'
+                : 'border-gray-300 bg-gradient-to-br from-gray-50 to-white hover:border-blue-400 hover:bg-gradient-to-br hover:from-blue-50 hover:to-purple-50 hover:scale-105'
             }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -97,38 +105,50 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
             />
             
             {isUploading ? (
-              <div className="space-y-4">
-                <div className="animate-spin mx-auto w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-                <p className="text-blue-600 font-medium">Uploading your bike...</p>
+              <div className="space-y-6">
+                <div className="relative">
+                  <div className="animate-spin mx-auto w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+                <p className="text-blue-600 font-semibold text-lg">Uploading your masterpiece...</p>
               </div>
             ) : uploadSuccess ? (
-              <div className="space-y-4">
-                <CheckCircle className="mx-auto text-green-500" size={48} />
-                <p className="text-green-600 font-medium">Bike uploaded successfully!</p>
-                <p className="text-sm text-gray-600">Your bike is now in the competition!</p>
+              <div className="space-y-6">
+                <div className="relative">
+                  <CheckCircle className="mx-auto text-emerald-500" size={64} />
+                  <div className="absolute -top-2 -right-2">
+                    <Sparkles className="text-yellow-400 animate-pulse" size={24} />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-emerald-600 font-bold text-xl mb-2">Upload Successful!</p>
+                  <p className="text-gray-600">Your bike is now competing in the arena!</p>
+                </div>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div className="flex justify-center">
                   {isDragging ? (
-                    <Upload className="text-blue-500" size={48} />
+                    <Upload className="text-blue-500 animate-bounce" size={64} />
                   ) : (
-                    <Camera className="text-gray-400" size={48} />
+                    <Camera className="text-gray-400" size={64} />
                   )}
                 </div>
                 
                 <div>
-                  <p className="text-lg font-medium text-gray-700 mb-2">
-                    {isDragging ? 'Drop your bike photo here!' : 'Upload your bike photo'}
+                  <p className="text-xl font-bold text-gray-800 mb-3">
+                    {isDragging ? 'Drop your bike photo here!' : 'Upload Your Bike Photo'}
                   </p>
-                  <p className="text-sm text-gray-500">
-                    Drag and drop an image, or click to browse
+                  <p className="text-gray-600 mb-6">
+                    Drag and drop an image, or click to browse your files
                   </p>
                 </div>
 
                 <Button 
                   variant="outline" 
-                  className="mt-4"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 hover:from-blue-700 hover:to-purple-700 px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   onClick={(e) => {
                     e.stopPropagation();
                     openFileDialog();
@@ -140,10 +160,17 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
             )}
           </div>
 
-          <div className="mt-6 text-sm text-gray-500 space-y-1">
-            <p>• Supported formats: JPG, PNG, GIF</p>
-            <p>• Maximum file size: 10MB</p>
-            <p>• No account required - upload anonymously!</p>
+          <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
+            <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+              <Sparkles size={16} className="text-purple-500" />
+              Upload Guidelines
+            </h3>
+            <div className="text-sm text-gray-600 space-y-2">
+              <p>• Supported formats: JPG, PNG, GIF</p>
+              <p>• Maximum file size: 10MB</p>
+              <p>• No account required - upload anonymously!</p>
+              <p>• Best photos: clear, well-lit, full bike view</p>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Trophy, RotateCcw } from 'lucide-react';
+import { Trophy, RotateCcw, Zap, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BikePhoto } from '@/pages/Index';
@@ -42,67 +42,91 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
 
   if (bikes.length < 2) {
     return (
-      <div className="text-center py-12">
-        <Trophy className="mx-auto text-gray-400 mb-4" size={64} />
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Not Enough Bikes to Compare</h2>
-        <p className="text-gray-600 mb-6">Upload at least 2 bikes to start the comparison battle!</p>
-        <p className="text-sm text-gray-500">Current bikes: {bikes.length}</p>
+      <div className="text-center py-16">
+        <div className="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-full w-32 h-32 mx-auto mb-6 flex items-center justify-center">
+          <Trophy className="text-orange-500" size={64} />
+        </div>
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">Arena Awaits Competitors</h2>
+        <p className="text-xl text-gray-600 mb-8">Upload at least 2 bikes to start the epic battle!</p>
+        <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 max-w-md mx-auto">
+          <p className="text-lg font-semibold text-gray-700">Current bikes: {bikes.length}/2</p>
+        </div>
       </div>
     );
   }
 
   if (!currentPair) {
     return (
-      <div className="text-center py-12">
-        <div className="animate-spin mx-auto w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mb-4"></div>
-        <p className="text-gray-600">Loading comparison...</p>
+      <div className="text-center py-16">
+        <div className="relative">
+          <div className="animate-spin mx-auto w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full mb-6"></div>
+          <Zap className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-purple-500" size={24} />
+        </div>
+        <p className="text-xl text-gray-600">Preparing the next battle...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Which Bike is Better?</h2>
-        <p className="text-gray-600">Click on the bike you think looks better!</p>
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Crown className="text-yellow-500" size={32} />
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+            Battle Arena
+          </h2>
+          <Crown className="text-yellow-500" size={32} />
+        </div>
+        <p className="text-xl text-gray-600">Choose your champion! Click on the bike that deserves victory!</p>
       </div>
 
       <div className={`transition-all duration-500 ${isAnimating ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {currentPair.map((bike, index) => (
             <Card 
               key={bike.id}
-              className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105"
+              className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 border-0 bg-white/70 backdrop-blur-sm overflow-hidden"
               onClick={() => handleVote(bike.id, currentPair[1 - index].id)}
             >
               <CardContent className="p-0">
-                <div className="relative">
+                <div className="relative overflow-hidden">
                   <img
                     src={bike.imageUrl}
                     alt="Bike for comparison"
-                    className="w-full h-64 object-cover rounded-t-lg"
+                    className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110"
                   />
-                  <div className="absolute top-4 right-4 bg-white bg-opacity-90 px-3 py-1 rounded-full">
-                    <span className="text-sm font-semibold text-gray-700">
-                      Rating: {bike.rating}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                    <span className="text-sm font-bold text-gray-700">
+                      ⭐ {bike.rating}
                     </span>
+                  </div>
+                  <div className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    CHALLENGER
                   </div>
                 </div>
                 
-                <div className="p-4">
-                  <div className="flex justify-between items-center text-sm text-gray-600">
-                    <span>Wins: {bike.wins}</span>
-                    <span>Losses: {bike.losses}</span>
+                <div className="p-6 bg-gradient-to-br from-white to-gray-50">
+                  <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="font-semibold">Wins: {bike.wins}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      <span className="font-semibold">Losses: {bike.losses}</span>
+                    </div>
                   </div>
                   
                   <Button 
-                    className="w-full mt-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 shadow-lg hover:shadow-xl transition-all duration-300"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleVote(bike.id, currentPair[1 - index].id);
                     }}
                   >
-                    Vote for This Bike
+                    <Trophy size={18} className="mr-2" />
+                    Vote for Champion
                   </Button>
                 </div>
               </CardContent>
@@ -111,20 +135,22 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="text-center space-y-4">
         <Button 
           variant="outline" 
           onClick={loadNewPair}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 px-6 py-3 bg-white/70 backdrop-blur-sm hover:bg-white/90 border-gray-200 hover:border-purple-300 transition-all duration-300"
           disabled={isAnimating}
         >
-          <RotateCcw size={16} />
-          Skip This Pair
+          <RotateCcw size={18} />
+          Skip This Battle
         </Button>
-      </div>
 
-      <div className="text-center text-sm text-gray-500">
-        <p>Total bikes in competition: {bikes.length}</p>
+        <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 max-w-md mx-auto">
+          <p className="text-gray-600">
+            <span className="font-semibold text-purple-600">{bikes.length}</span> bikes competing for glory
+          </p>
+        </div>
       </div>
     </div>
   );

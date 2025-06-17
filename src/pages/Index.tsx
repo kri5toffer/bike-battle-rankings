@@ -98,8 +98,10 @@ const Index = () => {
     <Button
       onClick={() => setActiveTab(tab)}
       variant={isActive ? "default" : "outline"}
-      className={`flex items-center gap-2 transition-all duration-200 ${
-        isActive ? 'bg-blue-600 hover:bg-blue-700' : 'hover:bg-blue-50'
+      className={`flex items-center gap-2 px-6 py-3 transition-all duration-300 ${
+        isActive 
+          ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg' 
+          : 'hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:border-blue-300 border-gray-200'
       }`}
     >
       <Icon size={18} />
@@ -108,21 +110,21 @@ const Index = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-blue-600 rounded-lg">
-              <Bike className="text-white" size={24} />
+      <div className="bg-white/80 backdrop-blur-lg shadow-xl border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-lg">
+              <Bike className="text-white" size={28} />
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent">
-              Bike Battle
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+              Bike Battle Arena
             </h1>
           </div>
           
           {/* Navigation Tabs */}
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-4">
             <TabButton 
               tab="upload" 
               icon={Upload} 
@@ -132,19 +134,19 @@ const Index = () => {
             <TabButton 
               tab="compare" 
               icon={Trophy} 
-              label="Compare Bikes" 
+              label="Battle Arena" 
               isActive={activeTab === 'compare'} 
             />
             <TabButton 
               tab="search" 
               icon={Search} 
-              label="Search Your Bike" 
+              label="Find My Bike" 
               isActive={activeTab === 'search'} 
             />
             <TabButton 
               tab="leaderboard" 
               icon={Trophy} 
-              label="Leaderboard" 
+              label="Champions Board" 
               isActive={activeTab === 'leaderboard'} 
             />
           </div>
@@ -152,7 +154,7 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-10">
         {activeTab === 'upload' && (
           <UploadSection onBikeUploaded={addBike} />
         )}
