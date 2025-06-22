@@ -199,9 +199,9 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
             {uploadSuccess ? (
               <div className="space-y-6">
                 <div className="relative">
-                  <CheckCircle className="mx-auto text-emerald-400" size={48} sm:size={64} />
+                  <CheckCircle className="mx-auto text-emerald-400 w-12 h-12 sm:w-16 sm:h-16" />
                   <div className="absolute -top-2 -right-2">
-                    <Sparkles className="text-yellow-400 animate-pulse" size={20} sm:size={24} />
+                    <Sparkles className="text-yellow-400 animate-pulse w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                 </div>
                 <div>
@@ -213,9 +213,9 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
               <div className="space-y-6">
                 <div className="flex justify-center">
                   {isDragging ? (
-                    <Upload className="text-blue-400 animate-bounce" size={48} sm:size={64} />
+                    <Upload className="text-blue-400 animate-bounce w-12 h-12 sm:w-16 sm:h-16" />
                   ) : (
-                    <Camera className="text-gray-400" size={48} sm:size={64} />
+                    <Camera className="text-gray-400 w-12 h-12 sm:w-16 sm:h-16" />
                   )}
                 </div>
                 

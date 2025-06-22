@@ -187,7 +187,7 @@ const Index = () => {
           : 'bg-gray-800/50 border-gray-600 text-gray-200 hover:bg-gradient-to-r hover:from-blue-900/50 hover:to-purple-900/50 hover:border-blue-500'
       }`}
     >
-      <Icon size={16} sm:size={18} />
+      <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
       <span className="hidden sm:inline">{label}</span>
     </Button>
   );
@@ -199,7 +199,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
             <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl sm:rounded-2xl shadow-lg">
-              <Bike className="text-white" size={24} sm:size={28} />
+              <Bike className="text-white w-6 h-6 sm:w-7 sm:h-7" />
             </div>
             <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent text-center">
               Bike Battle Arena
