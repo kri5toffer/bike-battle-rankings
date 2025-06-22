@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { Upload, Search, Trophy, Bike } from 'lucide-react';
+import { Upload, Search, Trophy, Bike, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import UploadSection from '@/components/UploadSection';
 import ComparisonView from '@/components/ComparisonView';
 import SearchSection from '@/components/SearchSection';
 import Leaderboard from '@/components/Leaderboard';
+import ContactForm from '@/components/ContactForm';
 import { supabase } from '@/integrations/supabase/client';
 import { BikeDetails } from '@/components/BikeDetailsForm';
 
@@ -26,7 +27,7 @@ export interface BikePhoto {
 }
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState<'upload' | 'compare' | 'search' | 'leaderboard'>('upload');
+  const [activeTab, setActiveTab] = useState<'upload' | 'compare' | 'search' | 'leaderboard' | 'contact'>('upload');
   const [bikes, setBikes] = useState<BikePhoto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -180,14 +181,14 @@ const Index = () => {
     <Button
       onClick={() => setActiveTab(tab)}
       variant={isActive ? "default" : "outline"}
-      className={`flex items-center gap-2 px-6 py-3 transition-all duration-300 ${
+      className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base transition-all duration-300 ${
         isActive 
           ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg' 
           : 'bg-gray-800/50 border-gray-600 text-gray-200 hover:bg-gradient-to-r hover:from-blue-900/50 hover:to-purple-900/50 hover:border-blue-500'
       }`}
     >
-      <Icon size={18} />
-      {label}
+      <Icon size={16} sm:size={18} />
+      <span className="hidden sm:inline">{label}</span>
     </Button>
   );
 
@@ -195,18 +196,18 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       {/* Header */}
       <div className="bg-gray-900/80 backdrop-blur-lg shadow-xl border-b border-gray-700">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-lg">
-              <Bike className="text-white" size={28} />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl sm:rounded-2xl shadow-lg">
+              <Bike className="text-white" size={24} sm:size={28} />
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent text-center">
               Bike Battle Arena
             </h1>
           </div>
           
-          {/* Navigation Tabs - Centered */}
-          <div className="flex flex-wrap gap-4 justify-center">
+          {/* Navigation Tabs - Centered and Mobile Responsive */}
+          <div className="flex flex-wrap gap-2 sm:gap-4 justify-center">
             <TabButton 
               tab="upload" 
               icon={Upload} 
@@ -227,16 +228,22 @@ const Index = () => {
             />
             <TabButton 
               tab="leaderboard" 
-              icon={Trophy} 
+              icon={Trophy}
               label="Champions Board" 
               isActive={activeTab === 'leaderboard'} 
+            />
+            <TabButton 
+              tab="contact" 
+              icon={MessageCircle} 
+              label="Contact" 
+              isActive={activeTab === 'contact'} 
             />
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
         {isLoading ? (
           <div className="flex justify-center items-center py-20">
             <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
@@ -260,6 +267,21 @@ const Index = () => {
             
             {activeTab === 'leaderboard' && (
               <Leaderboard bikes={bikes} />
+            )}
+
+            {activeTab === 'contact' && (
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h2 className="text-3xl font-bold text-gray-100 mb-4">
+                    Get in Touch
+                  </h2>
+                  <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                    Have questions, suggestions, or just want to chat about bikes? 
+                    I'd love to hear from you!
+                  </p>
+                </div>
+                <ContactForm />
+              </div>
             )}
           </>
         )}
