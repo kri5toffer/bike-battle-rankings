@@ -46,10 +46,10 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
         <div className="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-full w-32 h-32 mx-auto mb-6 flex items-center justify-center">
           <Trophy className="text-orange-500" size={64} />
         </div>
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Arena Awaits Competitors</h2>
-        <p className="text-xl text-gray-600 mb-8">Upload at least 2 bikes to start the epic battle!</p>
-        <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 max-w-md mx-auto">
-          <p className="text-lg font-semibold text-gray-700">Current bikes: {bikes.length}/2</p>
+        <h2 className="text-3xl font-bold text-gray-100 mb-4">Ready for Competition</h2>
+        <p className="text-xl text-gray-300 mb-8">Upload at least 2 bikes to start head-to-head comparisons!</p>
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-md mx-auto border border-gray-600">
+          <p className="text-lg font-semibold text-gray-200">Current entries: {bikes.length}/2</p>
         </div>
       </div>
     );
@@ -62,7 +62,7 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
           <div className="animate-spin mx-auto w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full mb-6"></div>
           <Zap className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-purple-500" size={24} />
         </div>
-        <p className="text-xl text-gray-600">Preparing the next battle...</p>
+        <p className="text-xl text-gray-300">Preparing next matchup...</p>
       </div>
     );
   }
@@ -72,12 +72,12 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
       <div className="text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Crown className="text-yellow-500" size={32} />
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-            Battle Arena
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Head-to-Head Showdown
           </h2>
           <Crown className="text-yellow-500" size={32} />
         </div>
-        <p className="text-xl text-gray-600">Choose your champion! Click on the bike that deserves victory!</p>
+        <p className="text-xl text-gray-300">Choose your winner! Each vote affects the Elo rankings.</p>
       </div>
 
       <div className={`transition-all duration-500 ${isAnimating ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
@@ -85,7 +85,7 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
           {currentPair.map((bike, index) => (
             <Card 
               key={bike.id}
-              className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 border-0 bg-white/70 backdrop-blur-sm overflow-hidden"
+              className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 border-0 bg-white/10 backdrop-blur-sm overflow-hidden hover:bg-white/20"
               onClick={() => handleVote(bike.id, currentPair[1 - index].id)}
             >
               <CardContent className="p-0">
@@ -95,19 +95,19 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
                     alt="Bike for comparison"
                     className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                    <span className="text-sm font-bold text-gray-700">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                    <span className="text-sm font-bold text-white">
                       ⭐ {bike.rating}
                     </span>
                   </div>
                   <div className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                    CHALLENGER
+                    ELO RATED
                   </div>
                 </div>
                 
-                <div className="p-6 bg-gradient-to-br from-white to-gray-50">
-                  <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
+                <div className="p-6 bg-gradient-to-br from-gray-800/90 to-gray-900/90">
+                  <div className="flex justify-between items-center text-sm text-gray-300 mb-4">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                       <span className="font-semibold">Wins: {bike.wins}</span>
@@ -126,7 +126,7 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
                     }}
                   >
                     <Trophy size={18} className="mr-2" />
-                    Vote for Champion
+                    Select Winner
                   </Button>
                 </div>
               </CardContent>
@@ -139,16 +139,16 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
         <Button 
           variant="outline" 
           onClick={loadNewPair}
-          className="flex items-center gap-2 px-6 py-3 bg-white/70 backdrop-blur-sm hover:bg-white/90 border-gray-200 hover:border-purple-300 transition-all duration-300"
+          className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-gray-600 hover:border-purple-400 transition-all duration-300 text-gray-200"
           disabled={isAnimating}
         >
           <RotateCcw size={18} />
-          Skip This Battle
+          Skip Matchup
         </Button>
 
-        <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 max-w-md mx-auto">
-          <p className="text-gray-600">
-            <span className="font-semibold text-purple-600">{bikes.length}</span> bikes competing for glory
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 max-w-md mx-auto border border-gray-600">
+          <p className="text-gray-300">
+            <span className="font-semibold text-purple-400">{bikes.length}</span> bikes competing with Elo ratings
           </p>
         </div>
       </div>

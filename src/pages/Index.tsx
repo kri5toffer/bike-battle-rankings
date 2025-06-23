@@ -202,7 +202,7 @@ const Index = () => {
               <Bike className="text-white w-6 h-6 sm:w-7 sm:h-7" />
             </div>
             <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent text-center">
-              Bike Battle Arena
+              Velocity Rankings
             </h1>
           </div>
           
@@ -211,25 +211,25 @@ const Index = () => {
             <TabButton 
               tab="upload" 
               icon={Upload} 
-              label="Upload Bike" 
+              label="Submit Entry" 
               isActive={activeTab === 'upload'} 
             />
             <TabButton 
               tab="compare" 
               icon={Trophy} 
-              label="Battle Arena" 
+              label="Head-to-Head" 
               isActive={activeTab === 'compare'} 
             />
             <TabButton 
               tab="search" 
               icon={Search} 
-              label="Find My Bike" 
+              label="Gallery" 
               isActive={activeTab === 'search'} 
             />
             <TabButton 
               tab="leaderboard" 
               icon={Trophy}
-              label="Champions Board" 
+              label="Rankings" 
               isActive={activeTab === 'leaderboard'} 
             />
             <TabButton 
