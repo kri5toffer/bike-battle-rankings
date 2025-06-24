@@ -26,10 +26,10 @@ const TabButton = ({
   <Button
     onClick={() => onClick(tab)}
     variant={isActive ? "default" : "outline"}
-    className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base transition-all duration-300 ${
+    className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base transition-all duration-300 rounded-none border-2 ${
       isActive 
-        ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg' 
-        : 'bg-gray-800/50 border-gray-600 text-gray-200 hover:bg-gradient-to-r hover:from-blue-900/50 hover:to-purple-900/50 hover:border-blue-500'
+        ? 'bg-white text-black border-white hover:bg-gray-100' 
+        : 'bg-black text-white border-white hover:bg-white hover:text-black'
     }`}
   >
     <Icon className="w-4 h-4 sm:w-5 sm:h-5" />

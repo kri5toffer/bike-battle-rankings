@@ -46,11 +46,11 @@ const TabContent: React.FC<TabContentProps> = ({
 
       {activeTab === 'contact' && (
         <div className="space-y-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-100 mb-4">
+          <div className="text-center border-2 border-black bg-white p-8">
+            <h2 className="text-3xl font-bold text-black mb-4">
               Get in Touch
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg text-black max-w-2xl mx-auto">
               Have questions, suggestions, or just want to chat about bikes? 
               I'd love to hear from you!
             </p>
