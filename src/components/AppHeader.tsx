@@ -9,7 +9,7 @@ const AppHeader = () => {
         <Bike className="text-black w-6 h-6 sm:w-7 sm:h-7" />
       </div>
       <h1 className="text-2xl sm:text-4xl font-bold text-white text-center">
-        Velocity Rankings
+        yourbikevsmybike
       </h1>
     </div>
   );
