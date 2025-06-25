@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Upload, Camera, CheckCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -164,12 +163,11 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onBikeUploaded }) => {
         <div className="flex items-center justify-center gap-2 mb-4">
           <Sparkles className="text-black" size={24} />
           <h2 className="text-3xl font-bold text-black">
-            Showcase Your Ride
+            Upload Your Ride
           </h2>
         </div>
         <p className="text-lg text-black max-w-2xl mx-auto">
-          Upload your bike photo and join the ultimate cycling competition. 
-          See how your ride stacks up against the community!
+          Upload photo of your bike to see how it stacks up with other riders' bikes!
         </p>
       </div>
 

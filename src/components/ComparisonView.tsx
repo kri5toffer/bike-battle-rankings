@@ -73,7 +73,7 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ bikes, onVote }) => {
         <div className="flex items-center justify-center gap-3 mb-4">
           <Crown className="text-black" size={32} />
           <h2 className="text-3xl font-bold text-black">
-            Head-to-Head Showdown
+            Left or Right - Vote for a Bike
           </h2>
           <Crown className="text-black" size={32} />
         </div>

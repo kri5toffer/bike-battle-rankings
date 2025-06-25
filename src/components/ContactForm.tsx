@@ -62,24 +62,24 @@ const ContactForm: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <Card className="max-w-2xl mx-auto bg-gray-900/90 backdrop-blur-sm border-gray-700">
+      <Card className="max-w-2xl mx-auto bg-white border-2 border-black">
         <CardContent className="p-8 text-center">
           <div className="space-y-6">
             <div className="relative">
-              <CheckCircle className="mx-auto text-green-400" size={64} />
+              <CheckCircle className="mx-auto text-black" size={64} />
               <div className="absolute -top-2 -right-2">
-                <Mail className="text-blue-400 animate-pulse" size={24} />
+                <Mail className="text-black animate-pulse" size={24} />
               </div>
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-green-400 mb-2">Message Sent!</h3>
-              <p className="text-gray-300 mb-4">
+              <h3 className="text-2xl font-bold text-black mb-2">Message Sent!</h3>
+              <p className="text-black mb-4">
                 Thanks for reaching out! I'll get back to you as soon as possible.
               </p>
               <Button
                 onClick={() => setIsSubmitted(false)}
                 variant="outline"
-                className="bg-gray-800 border-gray-600 text-gray-200 hover:bg-gray-700"
+                className="bg-white border-2 border-black text-black hover:bg-black hover:text-white"
               >
                 Send Another Message
               </Button>
@@ -91,21 +91,21 @@ const ContactForm: React.FC = () => {
   }
 
   return (
-    <Card className="max-w-2xl mx-auto bg-gray-900/90 backdrop-blur-sm border-gray-700">
+    <Card className="max-w-2xl mx-auto bg-white border-2 border-black">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-gray-100 text-center flex items-center justify-center gap-2">
-          <MessageCircle className="text-blue-400" size={28} />
+        <CardTitle className="text-2xl font-bold text-black text-center flex items-center justify-center gap-2">
+          <MessageCircle className="text-black" size={28} />
           Contact Me
         </CardTitle>
-        <p className="text-gray-300 text-center">
-          Have questions about Bike Battle Arena? I'd love to hear from you!
+        <p className="text-black text-center">
+          Have questions about yourbikevsmybike? I'd love to hear from you!
         </p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-gray-200 font-medium">
+              <Label htmlFor="name" className="text-black font-medium">
                 Your Name *
               </Label>
               <Input
@@ -113,13 +113,13 @@ const ContactForm: React.FC = () => {
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 placeholder="Enter your name"
-                className="bg-gray-800 border-gray-600 text-gray-100 placeholder-gray-400"
+                className="bg-white border-2 border-black text-black placeholder-gray-400"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-200 font-medium">
+              <Label htmlFor="email" className="text-black font-medium">
                 Email Address *
               </Label>
               <Input
@@ -128,14 +128,14 @@ const ContactForm: React.FC = () => {
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 placeholder="your@email.com"
-                className="bg-gray-800 border-gray-600 text-gray-100 placeholder-gray-400"
+                className="bg-white border-2 border-black text-black placeholder-gray-400"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="message" className="text-gray-200 font-medium">
+            <Label htmlFor="message" className="text-black font-medium">
               Your Message *
             </Label>
             <Textarea
@@ -144,14 +144,14 @@ const ContactForm: React.FC = () => {
               onChange={(e) => handleInputChange('message', e.target.value)}
               placeholder="Tell me what's on your mind..."
               rows={6}
-              className="bg-gray-800 border-gray-600 text-gray-100 placeholder-gray-400"
+              className="bg-white border-2 border-black text-black placeholder-gray-400"
               required
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 py-3 text-lg font-semibold"
+            className="w-full bg-black text-white hover:bg-white hover:text-black border-2 border-black py-3 text-lg font-semibold"
             disabled={isSubmitting || !formData.name.trim() || !formData.email.trim() || !formData.message.trim()}
           >
             {isSubmitting ? (
