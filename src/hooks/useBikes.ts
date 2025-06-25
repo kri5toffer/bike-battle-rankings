@@ -36,7 +36,8 @@ export const useBikes = () => {
         brand: bike.brand,
         model: bike.model,
         year: bike.year,
-        description: bike.description
+        description: bike.description,
+        mostOftenRiddenRoute: bike.most_often_ridden_route
       }));
 
       setBikes(formattedBikes);
@@ -58,7 +59,8 @@ export const useBikes = () => {
           brand: details.brand || null,
           model: details.model || null,
           year: details.year || null,
-          description: details.description || null
+          description: details.description || null,
+          most_often_ridden_route: details.mostOftenRiddenRoute || null
         })
         .select()
         .single();
@@ -80,7 +82,8 @@ export const useBikes = () => {
         brand: data.brand,
         model: data.model,
         year: data.year,
-        description: data.description
+        description: data.description,
+        mostOftenRiddenRoute: data.most_often_ridden_route
       };
 
       setBikes(prev => [newBike, ...prev]);

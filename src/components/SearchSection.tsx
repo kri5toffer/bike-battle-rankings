@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Trophy, TrendingUp, TrendingDown, Star, Award } from 'lucide-react';
+import { Search, Trophy, TrendingUp, TrendingDown, Star, Award, Calendar, MapPin, Bike, Building, Hash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -89,7 +89,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ bikes }) => {
                   <img
                     src={selectedBike.imageUrl}
                     alt="Selected bike"
-                    className="w-full h-80 object-cover"
+                    className="w-full h-80 object-cover border-2 border-black"
                   />
                   <div className="absolute top-4 left-4">
                     <div className="bg-black text-white px-3 py-1 text-sm font-bold">
@@ -101,9 +101,13 @@ const SearchSection: React.FC<SearchSectionProps> = ({ bikes }) => {
               
               <div className="space-y-6">
                 <div className="text-center md:text-left">
-                  <h3 className="text-3xl font-bold text-black mb-4">
-                    Champion Stats
+                  <h3 className="text-3xl font-bold text-black mb-2">
+                    {selectedBike.bikeName || 'Unnamed Bike'}
                   </h3>
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
+                    <Bike className="text-black" size={20} />
+                    <span className="text-lg text-black">{selectedBike.bikeType || 'Unknown Type'}</span>
+                  </div>
                   <div className="flex items-center justify-center md:justify-start gap-3 mb-6">
                     <Award className="text-black" size={24} />
                     <span className="text-xl font-bold text-black">
@@ -112,7 +116,55 @@ const SearchSection: React.FC<SearchSectionProps> = ({ bikes }) => {
                   </div>
                 </div>
 
+                {/* Bike Details */}
                 <div className="space-y-4">
+                  {selectedBike.brand && (
+                    <div className="flex items-center gap-3 p-3 bg-white border-2 border-black">
+                      <Building className="text-black" size={18} />
+                      <div>
+                        <div className="font-bold text-black text-sm">Brand</div>
+                        <div className="text-black">{selectedBike.brand}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedBike.model && (
+                    <div className="flex items-center gap-3 p-3 bg-white border-2 border-black">
+                      <Hash className="text-black" size={18} />
+                      <div>
+                        <div className="font-bold text-black text-sm">Model</div>
+                        <div className="text-black">{selectedBike.model}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedBike.year && (
+                    <div className="flex items-center gap-3 p-3 bg-white border-2 border-black">
+                      <Calendar className="text-black" size={18} />
+                      <div>
+                        <div className="font-bold text-black text-sm">Year</div>
+                        <div className="text-black">{selectedBike.year}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedBike.mostOftenRiddenRoute && (
+                    <div className="flex items-center gap-3 p-3 bg-white border-2 border-black">
+                      <MapPin className="text-black" size={18} />
+                      <div>
+                        <div className="font-bold text-black text-sm">Most Often Ridden Route</div>
+                        <div className="text-black">{selectedBike.mostOftenRiddenRoute}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedBike.description && (
+                    <div className="p-3 bg-white border-2 border-black">
+                      <div className="font-bold text-black text-sm mb-2">Description</div>
+                      <div className="text-black">{selectedBike.description}</div>
+                    </div>
+                  )}
+
                   <div className="flex justify-between items-center p-4 bg-white border-2 border-black">
                     <span className="font-bold text-black">Battle Rating</span>
                     <div className="flex items-center gap-2">

@@ -19,6 +19,7 @@ export type Database = {
           image_url: string
           losses: number
           model: string | null
+          most_often_ridden_route: string | null
           rating: number
           uploaded_at: string
           wins: number
@@ -33,6 +34,7 @@ export type Database = {
           image_url: string
           losses?: number
           model?: string | null
+          most_often_ridden_route?: string | null
           rating?: number
           uploaded_at?: string
           wins?: number
@@ -47,6 +49,7 @@ export type Database = {
           image_url?: string
           losses?: number
           model?: string | null
+          most_often_ridden_route?: string | null
           rating?: number
           uploaded_at?: string
           wins?: number
