@@ -21,6 +21,8 @@ export interface BikeDetails {
   year: number | null;
   description: string;
   mostOftenRiddenRoute: string;
+  country: string;
+  city: string;
 }
 
 const BikeDetailsForm: React.FC<BikeDetailsFormProps> = ({ onSubmit, onCancel, isSubmitting }) => {
@@ -31,7 +33,9 @@ const BikeDetailsForm: React.FC<BikeDetailsFormProps> = ({ onSubmit, onCancel, i
     model: '',
     year: null,
     description: '',
-    mostOftenRiddenRoute: ''
+    mostOftenRiddenRoute: '',
+    country: '',
+    city: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -148,6 +152,32 @@ const BikeDetailsForm: React.FC<BikeDetailsFormProps> = ({ onSubmit, onCancel, i
                 value={details.mostOftenRiddenRoute}
                 onChange={(e) => setDetails(prev => ({ ...prev, mostOftenRiddenRoute: e.target.value }))}
                 placeholder="Central Park Loop, Coast Highway, etc."
+                className="bg-white border-2 border-black text-black placeholder-gray-400"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="country" className="text-black font-medium">
+                Country
+              </Label>
+              <Input
+                id="country"
+                value={details.country}
+                onChange={(e) => setDetails(prev => ({ ...prev, country: e.target.value }))}
+                placeholder="United States, Canada, etc."
+                className="bg-white border-2 border-black text-black placeholder-gray-400"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="city" className="text-black font-medium">
+                City
+              </Label>
+              <Input
+                id="city"
+                value={details.city}
+                onChange={(e) => setDetails(prev => ({ ...prev, city: e.target.value }))}
+                placeholder="New York, Toronto, etc."
                 className="bg-white border-2 border-black text-black placeholder-gray-400"
               />
             </div>

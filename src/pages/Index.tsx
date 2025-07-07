@@ -19,6 +19,8 @@ export interface BikePhoto {
   year?: number;
   description?: string;
   mostOftenRiddenRoute?: string;
+  country?: string;
+  city?: string;
 }
 
 type TabType = 'upload' | 'compare' | 'search' | 'leaderboard' | 'contact';

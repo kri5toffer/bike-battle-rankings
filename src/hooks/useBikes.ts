@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { BikePhoto } from '@/pages/Index';
@@ -37,7 +36,9 @@ export const useBikes = () => {
         model: bike.model,
         year: bike.year,
         description: bike.description,
-        mostOftenRiddenRoute: bike.most_often_ridden_route
+        mostOftenRiddenRoute: bike.most_often_ridden_route,
+        country: bike.country,
+        city: bike.city
       }));
 
       setBikes(formattedBikes);
@@ -60,7 +61,9 @@ export const useBikes = () => {
           model: details.model || null,
           year: details.year || null,
           description: details.description || null,
-          most_often_ridden_route: details.mostOftenRiddenRoute || null
+          most_often_ridden_route: details.mostOftenRiddenRoute || null,
+          country: details.country || null,
+          city: details.city || null
         })
         .select()
         .single();
@@ -83,7 +86,9 @@ export const useBikes = () => {
         model: data.model,
         year: data.year,
         description: data.description,
-        mostOftenRiddenRoute: data.most_often_ridden_route
+        mostOftenRiddenRoute: data.most_often_ridden_route,
+        country: data.country,
+        city: data.city
       };
 
       setBikes(prev => [newBike, ...prev]);

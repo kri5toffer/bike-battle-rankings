@@ -14,6 +14,8 @@ export type Database = {
           bike_name: string
           bike_type: string
           brand: string | null
+          city: string | null
+          country: string | null
           description: string | null
           id: string
           image_url: string
@@ -29,6 +31,8 @@ export type Database = {
           bike_name: string
           bike_type: string
           brand?: string | null
+          city?: string | null
+          country?: string | null
           description?: string | null
           id?: string
           image_url: string
@@ -44,6 +48,8 @@ export type Database = {
           bike_name?: string
           bike_type?: string
           brand?: string | null
+          city?: string | null
+          country?: string | null
           description?: string | null
           id?: string
           image_url?: string
