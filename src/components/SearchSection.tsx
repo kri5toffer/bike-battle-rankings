@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Trophy, TrendingUp, TrendingDown, Star, Award, Calendar, MapPin, Bike, Building, Hash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -63,7 +62,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ bikes }) => {
                 <img
                   src={bike.imageUrl}
                   alt="Uploaded bike"
-                  className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute bottom-2 left-2 right-2">
@@ -89,7 +88,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ bikes }) => {
                   <img
                     src={selectedBike.imageUrl}
                     alt="Selected bike"
-                    className="w-full h-80 object-cover border-2 border-black"
+                    className="w-full h-96 object-cover border-2 border-black"
                   />
                   <div className="absolute top-4 left-4">
                     <div className="bg-black text-white px-3 py-1 text-sm font-bold">

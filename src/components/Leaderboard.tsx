@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Trophy, Medal, Award, TrendingUp, Crown, Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -76,10 +75,10 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ bikes }) => {
                   <img
                     src={sortedBikes[1].imageUrl}
                     alt="2nd place bike"
-                    className="w-full h-32 object-cover"
+                    className="w-full h-40 object-cover"
                   />
                 </div>
-                <div className="text-lg font-bold text-black mb-1">Silver Champion</div>
+                <div className="text-lg font-bold text-black mb-1">2nd</div>
                 <div className="text-2xl font-bold text-black">{sortedBikes[1].rating}</div>
               </CardContent>
             </Card>
@@ -97,13 +96,13 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ bikes }) => {
                   <img
                     src={sortedBikes[0].imageUrl}
                     alt="1st place bike"
-                    className="w-full h-36 object-cover"
+                    className="w-full h-44 object-cover"
                   />
                   <div className="absolute top-2 left-2 bg-black text-white px-2 py-1 text-xs font-bold">
                     👑 CHAMPION
                   </div>
                 </div>
-                <div className="text-xl font-bold text-black mb-2">Ultimate Champion</div>
+                <div className="text-xl font-bold text-black mb-2">1st</div>
                 <div className="text-3xl font-bold text-black">{sortedBikes[0].rating}</div>
               </CardContent>
             </Card>
@@ -118,10 +117,10 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ bikes }) => {
                   <img
                     src={sortedBikes[2].imageUrl}
                     alt="3rd place bike"
-                    className="w-full h-32 object-cover"
+                    className="w-full h-40 object-cover"
                   />
                 </div>
-                <div className="text-lg font-bold text-black mb-1">Bronze Champion</div>
+                <div className="text-lg font-bold text-black mb-1">3rd</div>
                 <div className="text-2xl font-bold text-black">{sortedBikes[2].rating}</div>
               </CardContent>
             </Card>
@@ -155,7 +154,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ bikes }) => {
                       <img
                         src={bike.imageUrl}
                         alt={`Bike ranked #${position}`}
-                        className="w-20 h-20 object-cover"
+                        className="w-28 h-28 object-cover"
                       />
                       <div className="absolute inset-0 bg-black/20"></div>
                     </div>
